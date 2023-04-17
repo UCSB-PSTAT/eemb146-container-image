@@ -1,9 +1,5 @@
-# Container image source for <course>
-Info here about where to find and run this image.
+# Container image source for EEMB-146
+You can obtain this image from docker hub with `podman pull docker.io/ucsb/eemb146:latest`
 
-# Template instructions (**DELETE THIS SECTION**)
 
-* Uncomment and add necessary libraries to Containerfile
-* mv Jenkinsfile.template to Jenkinsfile
-* Update image variable and add tests to Jenkinsfile
 
