@@ -31,7 +31,7 @@ pipeline {
                 stage('Test') {
                     steps {
                         sh 'podman run -it --rm --pull=never localhost/$IMAGE_NAME which rstudio'
-                        sh 'podman run -it --rm --pull=never localhost/$IMAGE_NAME R -q -e "getRversion() >= \\"4.1.3\\"" | tee /dev/stderr | grep -q "TRUE"'
+                        sh 'podman run -it --rm --pull=never localhost/$IMAGE_NAME R -q -e "getRversion() >= \\"4.5.2\\"" | tee /dev/stderr | grep -q "TRUE"'
                         sh 'podman run -it --rm --pull=never localhost/$IMAGE_NAME R -e "library(\"readr\");library(\"ggplot2\");library(\"tidyverse\");library(\"car\");library(\"MASS\");library(\"psych\");library(\"grid\");library(\"dendextend\");library(\"factoextra\");library(\"caret\");library(\"splines\");library(\"survival\");library(\"survminer\")"'
 			sh 'podman run -it --rm --pull=never localhost/$IMAGE_NAME R -e "library(\"dplyr\");library(\"here\");library(\"knitr\")"'
                         sh 'podman run -d --name=$IMAGE_NAME --rm --pull=never -p 8888:8888 localhost/$IMAGE_NAME start-notebook.sh --NotebookApp.token="jenkinstest"'
