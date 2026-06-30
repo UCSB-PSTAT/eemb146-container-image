@@ -1,4 +1,4 @@
-FROM ucsb/rstudio-base:latest
+FROM registry.cloud.college.ucsb.edu/ucsb/rstudio-base:latest
 
 LABEL maintainer="LSIT Systems <lsitops@ucsb.edu>"
 

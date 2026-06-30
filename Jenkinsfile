@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         IMAGE_NAME = 'eemb146'
+        CONTAINER_REGISTRY  = 'registry.cloud.college.ucsb.edu'
     }
     stages {
         stage('Build Test Deploy') {
@@ -51,11 +52,11 @@ pipeline {
                 stage('Deploy') {
                     when { branch 'main' }
                     environment {
-                        DOCKER_HUB_CREDS = credentials('DockerHubToken')
+                        DOCKER_HUB_CREDS = credentials('harbor-registry-token')
                     }
                     steps {
-                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://docker.io/ucsb/$IMAGE_NAME:latest --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
-                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://docker.io/ucsb/$IMAGE_NAME:v$(date "+%Y%m%d") --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
+                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://$CONTAINER_REGISTRY/ucsb/$IMAGE_NAME:latest --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
+                        sh 'skopeo copy containers-storage:localhost/$IMAGE_NAME docker://$CONTAINER_REGISTRY/ucsb/$IMAGE_NAME:v$(date "+%Y%m%d") --dest-username $DOCKER_HUB_CREDS_USR --dest-password $DOCKER_HUB_CREDS_PSW'
                     }
                     post {
                         always {
